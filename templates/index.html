@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Bus Entry Dashboard</title>
+
+    <meta http-equiv="refresh" content="10">
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f4f6f9;
+        }
+        .card {
+            border-radius: 15px;
+        }
+        .table {
+            background: white;
+        }
+        .header-title {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <div class="text-center mb-4">
+        <h1 class="header-title">🚍 Smart Bus Entry System</h1>
+        <p class="text-muted">Live Campus Monitoring Dashboard</p>
+    </div>
+
+    <!-- Stats Card -->
+    <div class="card shadow p-3 mb-4">
+        <h4>Total Entries: <span class="text-success">{{ total_buses }}</span></h4>
+    </div>
+
+    <!-- Filter + Download -->
+    <div class="card shadow p-3 mb-4">
+        <form method="get" class="row g-3">
+
+            <div class="col-md-4">
+                <label class="form-label">Filter by Month</label>
+                <input type="month" name="month" class="form-control"
+                       value="{{ selected_month }}">
+            </div>
+
+            <div class="col-md-2 align-self-end">
+                <button type="submit" class="btn btn-primary w-100">
+                    Filter
+                </button>
+            </div>
+
+            <div class="col-md-2 align-self-end">
+                <a href="/download" class="btn btn-success w-100">
+                    Download Report
+                </a>
+            </div>
+
+            <div class="col-md-2 align-self-end">
+                <a href="/" class="btn btn-secondary w-100">
+                    Reset
+                </a>
+            </div>
+
+        </form>
+    </div>
+
+    <!-- Table -->
+    <table class="table table-bordered table-hover text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Bus Number</th>
+            <th>Route</th>
+            <th>Date</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in entries %}
+        <tr>
+            <td><strong>{{ entry[0] }}</strong></td>
+
+            <td>
+                <span class="badge bg-info text-dark">
+                    {{ entry[1] }}
+                </span>
+            </td>
+
+            <td>{{ entry[2] }}</td>
+            <td>{{ entry[3] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
